@@ -10,112 +10,159 @@ class ConfPage extends StatefulWidget {
 }
 
 class ConfPageState extends State<ConfPage> {
-  int counter = 0;
-  final dropValue = ValueNotifier('');
-  final dropOpcoes = {
+  ConfPageState() {
+    _selectedVal = _dropOpcoes[0];
+  }
+  final _dropOpcoes = [
+    '',
     'Rede Neural 1',
     'Rede neural 2',
     'Rede neural 3',
     'Rede neural 4'
-  };
+  ];
+  String? _selectedVal = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Center(
-            child: ValueListenableBuilder(
-              valueListenable: dropValue,
-              builder: (BuildContext context, String value, _) {
-                return SizedBox(
-                  width: 360,
-                  height: 70,
-                  child: Padding(
-                    padding: const EdgeInsets.all(0.0),
-                    child: DropdownButtonFormField<String>(
-                      isExpanded: true,
-                      hint: const Text(
-                        'Modelo...',
-                        style: TextStyle(fontSize: 15),
-                      ),
-                      decoration: InputDecoration(
-                          labelText: 'Modelo',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6))),
-                      value: (value.isEmpty) ? null : value,
-                      onChanged: (escolha) =>
-                          dropValue.value = escolha.toString(),
-                      items: dropOpcoes
-                          .map(
-                            (op) => DropdownMenuItem(
-                              value: op,
-                              child: Text(op),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                );
-              },
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20, right: 20, bottom: 5, top: 40),
+              child: DropdownButtonFormField(
+                value: _selectedVal,
+                items: _dropOpcoes
+                    .map((e) => DropdownMenuItem(
+                        child: Text(e.isEmpty ? 'Modelo...' : e), value: e))
+                    .toList(),
+                onChanged: (val) {
+                  setState(() {
+                    _selectedVal = val as String;
+                  });
+                },
+                icon: const Icon(Icons.arrow_drop_down_rounded),
+                decoration: const InputDecoration(
+                    contentPadding:
+                        EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    labelText: "Modelo",
+                    border: OutlineInputBorder()),
+              ),
             ),
-          ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Parametro 1',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6)),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, bottom: 5, top: 40),
+                child: TextField(
+                  decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    labelText: 'Parametro 1',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(6)),
+                  ),
                 ),
               ),
             ),
-          ),
-          const Center(
-            child: Text(
-              'Parametro 2',
-              style: TextStyle(fontSize: 25.0),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, bottom: 5, top: 40),
+                child: TextField(
+                  decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    labelText: 'Parametro 2',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(6)),
+                  ),
+                ),
+              ),
             ),
-          ),
-          const Center(
-            child: Text(
-              'Parametro 3',
-              style: TextStyle(fontSize: 25.0),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, bottom: 5, top: 40),
+                child: TextField(
+                  decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    labelText: 'Parametro 3',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(6)),
+                  ),
+                ),
+              ),
             ),
-          ),
-          const Divider(
-            thickness: 5,
-          ),
-        ],
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, bottom: 5, top: 40),
+                child: TextField(
+                  decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    labelText: 'Parametro 4',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(6)),
+                  ),
+                ),
+              ),
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
+                child: TextField(
+                  decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    labelText: 'Parametro 5',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(6)),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       extendBody: true,
-      bottomNavigationBar: BottomAppBar(
-        height: 60,
-        color: Colors.white,
-        child: IconTheme(
-          data: IconThemeData(color: Theme.of(context).colorScheme.onSurface),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.settings_outlined),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(Icons.image_outlined),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(Icons.camera_alt_outlined),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(Icons.exit_to_app_outlined),
-                onPressed: () {},
-              )
-            ],
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: Colors.black,
+              width: 2.0,
+            ),
+          ),
+        ),
+        child: BottomAppBar(
+          height: 60,
+          color: Colors.white,
+          child: IconTheme(
+            data: IconThemeData(color: Theme.of(context).colorScheme.onSurface),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.settings_outlined),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: const Icon(Icons.image_outlined),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: const Icon(Icons.camera_alt_outlined),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: const Icon(Icons.exit_to_app_outlined),
+                  onPressed: () {},
+                ),
+              ],
+            ),
           ),
         ),
       ),
