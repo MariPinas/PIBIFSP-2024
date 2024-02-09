@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'cam_page.dart';
 import 'conf_page.dart';
 import 'themes/theme.dart';
 
@@ -10,7 +10,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: ConfPage(),
+      home: CamPage(),
     );
   }
 }

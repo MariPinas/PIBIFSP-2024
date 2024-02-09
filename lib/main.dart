@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'app_widget.dart';
+import 'dart:io';
+import 'package:get/get.dart';
+import 'package:camera_camera/camera_camera.dart';
 
 main() {
-  runApp(AppWidget());
+  runApp(GetMaterialApp( // Use GetMaterialApp como widget raiz
+    home: AppWidget(),
+  ));
 }
