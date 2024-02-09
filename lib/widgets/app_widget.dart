@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'cam_page.dart';
-import 'conf_page.dart';
-import 'themes/theme.dart';
+import '../cam_page.dart';
+import '../conf_page.dart';
+import '../themes/theme.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);

@@ -3,7 +3,7 @@ import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'preview_page.dart';
-
+import 'widgets/anexo.dart';
 
 class CamPage extends StatefulWidget {
   const CamPage({super.key});
@@ -17,12 +17,12 @@ class CamPage extends StatefulWidget {
 class CamPageState extends State<CamPage> {
   late File arquivo;
 
-  showPreview(file) async{
-    file = await Get.to (()=> PreviewPage(file: file));
+  showPreview(file) async {
+    file = await Get.to(() => PreviewPage(file: file));
 
-    if (file != null){
-        setState(() => arquivo = file );
-        Get.back();
+    if (file != null) {
+      setState(() => arquivo = file);
+      Get.back();
     }
   }
 
@@ -37,6 +37,7 @@ class CamPageState extends State<CamPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                if (arquivo != null) Anexo(arquivo: arquivo),
                 ElevatedButton.icon(
                   onPressed: () => Get.to(
                     () => CameraCamera(onFile: (file) => showPreview(file)),
