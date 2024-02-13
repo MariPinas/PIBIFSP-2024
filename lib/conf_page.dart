@@ -30,7 +30,7 @@ class ConfPageState extends State<ConfPage> {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                  left: 20, right: 20, bottom: 5, top: 40),
+                  left: 20, right: 20, bottom: 5, top: 80),
               child: DropdownButtonFormField(
                 value: _selectedVal,
                 items: _dropOpcoes

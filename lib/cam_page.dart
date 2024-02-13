@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:social_share/social_share.dart';
 import 'preview_page.dart';
 import 'widgets/anexo.dart';
+import 'package:get/get.dart';
 
 class CamPage extends StatefulWidget {
   const CamPage({super.key});
@@ -15,14 +16,35 @@ class CamPage extends StatefulWidget {
 }
 
 class CamPageState extends State<CamPage> {
-  late File arquivo;
+  File? arquivo;
 
-  showPreview(file) async {
-    file = await Get.to(() => PreviewPage(file: file));
+  showPreview(File file) async {
+    setState(() => arquivo = file);
+    Get.back();
+  }
 
-    if (file != null) {
-      setState(() => arquivo = file);
-      Get.back();
+  Future<void> _exportWhatsapp() async {
+    if (arquivo != null) {
+      await SocialShare.shareWhatsapp(arquivo!.path);
+    } else {
+      // Caso não haja arquivo, exiba uma mensagem para o usuário
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Sem foto'),
+            content: const Text('Por favor, tire uma foto antes de exportar para o WhatsApp.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -37,7 +59,7 @@ class CamPageState extends State<CamPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (arquivo != null) Anexo(arquivo: arquivo),
+                if (arquivo != null) Anexo(arquivo: arquivo!),
                 ElevatedButton.icon(
                   onPressed: () => Get.to(
                     () => CameraCamera(onFile: (file) => showPreview(file)),
@@ -54,7 +76,23 @@ class CamPageState extends State<CamPage> {
                     ),
                     foregroundColor: Colors.white,
                   ),
-                )
+                ),
+                 const SizedBox(height: 16),
+                if (arquivo != null) ElevatedButton.icon(
+                  onPressed: _exportWhatsapp,
+                  icon: const Icon(Icons.share),
+                  label: const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text('Exportar'),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0.0,
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                    ),
+                    foregroundColor: Colors.white,
+                  ),
+                ),
               ],
             )
           ],
