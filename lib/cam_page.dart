@@ -3,8 +3,10 @@ import 'package:camera_camera/camera_camera.dart';
 import 'package:first_project_flutter/conf_page.dart';
 import 'package:first_project_flutter/livecam_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:social_share/social_share.dart';
-import 'preview_page.dart';
 import 'widgets/anexo.dart';
 import 'package:get/get.dart';
 
@@ -49,7 +51,7 @@ class CamPageState extends State<CamPage> {
       );
     }
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,7 +145,9 @@ class CamPageState extends State<CamPage> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.exit_to_app_outlined),
-                  onPressed: () {},
+                  onPressed: () {
+                    SystemNavigator.pop();
+                  },
                 ),
               ],
             ),

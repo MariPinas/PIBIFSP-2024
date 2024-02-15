@@ -1,6 +1,7 @@
 import 'package:first_project_flutter/cam_page.dart';
 import 'package:first_project_flutter/livecam_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ConfPage extends StatefulWidget {
   const ConfPage({super.key});
@@ -173,7 +174,9 @@ class ConfPageState extends State<ConfPage> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.exit_to_app_outlined),
-                  onPressed: () {},
+                  onPressed: () {
+                    SystemNavigator.pop();
+                  },
                 ),
               ],
             ),

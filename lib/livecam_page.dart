@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:first_project_flutter/cam_page.dart';
 import 'package:first_project_flutter/conf_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class LiveCamPage extends StatefulWidget {
   const LiveCamPage({Key? key}): super(key: key);
@@ -58,6 +59,7 @@ class _LiveCamPageState extends State<LiveCamPage>{
               CameraPreview(cameraController),
             ],
           ),
+          extendBody: true,
           bottomNavigationBar: Container(
             decoration: const BoxDecoration(
               border: Border(
@@ -101,7 +103,9 @@ class _LiveCamPageState extends State<LiveCamPage>{
                 ),
                 IconButton(
                   icon: const Icon(Icons.exit_to_app_outlined),
-                  onPressed: () {},
+                  onPressed: () {
+                    SystemNavigator.pop();
+                  },
                 ),
                   ],
                 ),
