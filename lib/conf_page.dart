@@ -1,3 +1,5 @@
+import 'package:first_project_flutter/cam_page.dart';
+import 'package:first_project_flutter/livecam_page.dart';
 import 'package:flutter/material.dart';
 
 class ConfPage extends StatefulWidget {
@@ -147,15 +149,27 @@ class ConfPageState extends State<ConfPage> {
               children: [
                 IconButton(
                   icon: const Icon(Icons.settings_outlined),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ConfPage()),
+                    );
+                  },
                 ),
                 IconButton(
                   icon: const Icon(Icons.image_outlined),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => CamPage()),
+                    );
+                  },
                 ),
                 IconButton(
                   icon: const Icon(Icons.camera_alt_outlined),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => LiveCamPage()),
+                    );
+                  },
                 ),
                 IconButton(
                   icon: const Icon(Icons.exit_to_app_outlined),
