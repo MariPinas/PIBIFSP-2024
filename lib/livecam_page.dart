@@ -1,5 +1,7 @@
 // LiveCamPage.dart
+import 'package:first_project_flutter/providers/conf_provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:vector_math/vector_math_64.dart';
 import 'package:first_project_flutter/cam_page.dart';
 import 'package:first_project_flutter/conf_page.dart';
@@ -144,7 +146,20 @@ class _LiveCamPageState extends State<LiveCamPage> {
         yoloResults = result;
       });
       //speakText(yoloResults);
-      await play3DSounds(result);
+      //await play3DSounds(result);
+      await _playAudioBasedOnMode(context, result);
+    }
+  }
+
+  Future<void> _playAudioBasedOnMode(
+      BuildContext context, List<Map<String, dynamic>> detectedObjects) async {
+    final audioMode =
+        Provider.of<ConfiguracaoProvider>(context, listen: false).audioMode;
+
+    if (audioMode == AudioMode.audio3d) {
+      await play3DSounds(detectedObjects);
+    } else {
+      await speakText(detectedObjects);
     }
   }
 
@@ -176,25 +191,26 @@ class _LiveCamPageState extends State<LiveCamPage> {
       }
     }
   }
-  // Future<void> speakText(List<Map<String, dynamic>> detectedObjects) async {
-  //   List<String> objectNames = detectedObjects.map((result) {
-  //     return result['tag'].toString();
-  //   }).toList();
 
-  //   objectNames.sort();
-  //   String currentResult = objectNames.join(', ');
-  //   DateTime currentTime = DateTime.now();
+  Future<void> speakText(List<Map<String, dynamic>> detectedObjects) async {
+    List<String> objectNames = detectedObjects.map((result) {
+      return result['tag'].toString();
+    }).toList();
 
-  //   int timeIntervalInSeconds = 5;
-  //   if (currentResult != previousResult ||
-  //       currentTime.difference(lastSpokenTime).inSeconds >
-  //           timeIntervalInSeconds) {
-  //     await flutterTts.setSpeechRate(1.0);
-  //     await flutterTts.speak(currentResult);
-  //     previousResult = currentResult;
-  //     lastSpokenTime = currentTime;
-  //   }
-  // }
+    objectNames.sort();
+    String currentResult = objectNames.join(', ');
+    DateTime currentTime = DateTime.now();
+
+    int timeIntervalInSeconds = 5;
+    if (currentResult != previousResult ||
+        currentTime.difference(lastSpokenTime).inSeconds >
+            timeIntervalInSeconds) {
+      await flutterTts.setSpeechRate(1.0);
+      await flutterTts.speak(currentResult);
+      previousResult = currentResult;
+      lastSpokenTime = currentTime;
+    }
+  }
 
   String getPositionLabel(double centerX, double centerY, Size screen) {
     double thirdWidth = screen.width / 3;
