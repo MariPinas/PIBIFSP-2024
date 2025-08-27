@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum AudioMode { stereo, audio3d }
+enum AudioMode { audio3d, directional }
 
 class ConfiguracaoProvider extends ChangeNotifier {
   AudioMode _audioMode = AudioMode.audio3d; // padrão inicial

@@ -12,9 +12,9 @@ class ConfPage extends StatelessWidget {
       body: Column(
         children: [
           ListTile(
-            title: Text("Áudio Estéreo"),
+            title: Text("Áudio Direcional"),
             leading: Radio<AudioMode>(
-              value: AudioMode.stereo,
+              value: AudioMode.directional,
               groupValue: provider.audioMode,
               onChanged: (value) {
                 provider.setAudioMode(value!);

@@ -24,6 +24,9 @@ class LiveCamPage extends StatefulWidget {
 class _LiveCamPageState extends State<LiveCamPage> {
   String previousResult = '';
   DateTime lastSpokenTime = DateTime.now();
+  DateTime lastAudioTime = DateTime.now();
+  final int cooldownMs = 2500; // 2.5 segundos
+  String lastPlayedObjects = '';
 
   late CameraController controller;
   late FlutterVision vision;
@@ -35,16 +38,17 @@ class _LiveCamPageState extends State<LiveCamPage> {
   bool soloudInitialized = false;
 
   final Map<String, Vector3> soundPositions = {
-    "Topo Esquerda": Vector3(-1, 0, -1),
-    "Topo": Vector3(0, 0, -1),
-    "Topo Direita": Vector3(1, 0, -1),
-    "Esquerda": Vector3(-1, 0, 0),
-    "Centro": Vector3(0, 0, 0),
-    "Direita": Vector3(1, 0, 0),
-    "Baixo Esquerda": Vector3(-1, 0, 1),
-    "Baixo": Vector3(0, 0, 1),
-    "Baixo Direita": Vector3(1, 0, 1),
+    "topo_esquerda": Vector3(-1, 0, -1),
+    "topo": Vector3(0, 0, -1),
+    "topo_direita": Vector3(1, 0, -1),
+    "esquerda": Vector3(-1, 0, 0),
+    "centro": Vector3(0, 0, 0),
+    "direita": Vector3(1, 0, 0),
+    "baixo_esquerda": Vector3(-1, 0, 1),
+    "baixo": Vector3(0, 0, 1),
+    "baixo_direita": Vector3(1, 0, 1),
   };
+
   @override
   void initState() {
     super.initState();
@@ -156,8 +160,27 @@ class _LiveCamPageState extends State<LiveCamPage> {
     final audioMode =
         Provider.of<ConfiguracaoProvider>(context, listen: false).audioMode;
 
+    DateTime now = DateTime.now();
+    if (now.difference(lastAudioTime).inMilliseconds < cooldownMs) {
+      return; //ainda esta dentro do intervalo
+    }
+
+    // monta lista de objetos para evitar repetir o mesmo
+    List currentObjects = detectedObjects.map((e) => e['tag']).toList();
+    currentObjects.sort();
+    String currentKey = currentObjects.join(',');
+
+    if (currentKey == lastPlayedObjects) {
+      return; //mesmo conteudo que antes
+    }
+
+    lastPlayedObjects = currentKey;
+    lastAudioTime = now;
+
     if (audioMode == AudioMode.audio3d) {
       await play3DSounds(detectedObjects);
+    } else if (audioMode == AudioMode.directional) {
+      await playDirectionalAudio(detectedObjects);
     } else {
       await speakText(detectedObjects);
     }
@@ -188,6 +211,40 @@ class _LiveCamPageState extends State<LiveCamPage> {
         if (sound != null) {
           await SoLoud().play3d(sound, position.x, position.y, position.z);
         }
+      }
+    }
+  }
+
+  Future<void> playDirectionalAudio(
+      List<Map<String, dynamic>> detectedObjects) async {
+    final screen = MediaQuery.of(context).size;
+
+    for (var obj in detectedObjects) {
+      String label = obj['tag'];
+      double x = obj["box"][0] * screen.width / (cameraImage?.height ?? 1);
+      double y = obj["box"][1] * screen.height / (cameraImage?.width ?? 1);
+      double w = (obj["box"][2] - obj["box"][0]) *
+          screen.width /
+          (cameraImage?.height ?? 1);
+      double h = (obj["box"][3] - obj["box"][1]) *
+          screen.height /
+          (cameraImage?.width ?? 1);
+      double cx = x + w / 2;
+      double cy = y + h / 2;
+
+      String region = getPositionLabel(cx, cy, screen);
+
+      final regionPath = 'assets/audio/directions/$region.mp3';
+      final objectPath = 'assets/audio/$label.mp3';
+
+      final regionSound = await SoloudTools.loadFromAssets(regionPath);
+      final objectSound = await SoloudTools.loadFromAssets(objectPath);
+
+      if (regionSound != null && objectSound != null) {
+        await SoLoud().play(regionSound);
+        await Future.delayed(const Duration(milliseconds: 600));
+        await SoLoud().play(objectSound);
+        await Future.delayed(const Duration(milliseconds: 600));
       }
     }
   }
@@ -240,23 +297,23 @@ class _LiveCamPageState extends State<LiveCamPage> {
 
     switch (position) {
       case 1:
-        return "Topo Esquerda";
+        return "topo_esquerda";
       case 2:
-        return "Topo";
+        return "topo";
       case 3:
-        return "Topo Direita";
+        return "topo_direita";
       case 4:
-        return "Esquerda";
+        return "esquerda";
       case 5:
-        return "Centro";
+        return "centro";
       case 6:
-        return "Direita";
+        return "direita";
       case 7:
-        return "Baixo Esquerda";
+        return "baixo_esquerda";
       case 8:
-        return "Baixo";
+        return "baixo";
       case 9:
-        return "Baixo Direita";
+        return "baixo_direita";
       default:
         return "Desconhecido";
     }

@@ -38,4 +38,5 @@ flutter:
     - assets/labels.txt
     - assets/model.tflite
     - assets/audio/
+    - assets/audio/directions/
   #   - images/a_dot_ham.jpeg
