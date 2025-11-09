@@ -1,0 +1,208 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Flutter/Dart related
+.dart_tool/
+.packages
+.pub-cache/
+.flutter-plugins
+.flutter-plugins-dependencies
+.melos_tool/
+
+# Build outputs
+build/
+**/build/
+*ios
+*xml
+# iOS build artifacts
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Pods/
+ios/Podfile.lock
+ios/Runner.xcworkspace/
+
+# Android build artifacts
+.android/
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+android/gradle.properties
+android/gradlew
+android/gradlew.bat
+
+# Android CMake / NDK / Native builds
+**/CMakeFiles/
+**/CMakeCache.txt
+**/cmake-build-*/
+**/Makefile
+**/build.ninja
+**/rules.ninja
+**/ninja_log
+**/ninja_deps
+**/metadata/
+**/metadata_generation_command.txt
+**/prefab.json
+**/codemodel-v2.json
+**/compile_commands.json
+**/*.cmake
+
+# Android Studio/IntelliJ
+*.iml
+.idea/
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# macOS build artifacts
+macos/Flutter/ephemeral/
+macos/build/
+
+# Linux build artifacts
+linux/Flutter/ephemeral/
+linux/build/
+
+# Windows build artifacts
+windows/Flutter/ephemeral/
+windows/build/
+
+# Web build
+web/.dart_tool/
+web/build/
+
+# Misc
+*.log
+*.tmp
+*.swp
+*.lock
+*.DS_Store
+
+
+.cxx*
+
+# Arquivos e pastas gerados pelo Flutter e Dart
+/build
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+**/generated_plugin_registrant.dart
+**/generated_plugin_registrant.cc
+**/generated_plugin_registrant.h
+**/generated_plugins.cmake
+**/GeneratedPluginRegistrant.java # Já estava no seu, mas é bom manter
+**/ios/Flutter/GeneratedPluginRegistrant.*
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+
+# Dependências (lib/packages)
+.idea/libraries/
+
+# Arquivos de IDE (IntelliJ/VS Code)
+.idea/
+.vscode/
+
+# Arquivos do Android (Build, Configuração Local e Chaves)
+/android/.gradle
+/android/local.properties
+/android/key.properties
+/android/gradlew
+/android/gradlew.bat
+/android/captures/
+**/*.keystore
+**/*.jks
+gradle-wrapper.jar
+
+# Arquivos de Build Nativo (Android/iOS)
+**/*.apk
+**/*.aab
+**/*.ipa
+**/*.app
+/ios/.symlinks/
+/ios/Pods/
+/ios/Runner/Runner.xcworkspace/
+/ios/Runner/project.xcworkspace/
+
+# Arquivos temporários e de OS (macOS/Linux/Windows)
+*~
+.*~
+.DS_Store
+Thumbs.db
+
+# ------------------------------------------------------------------
+# CONFIGURAÇÃO NATIVA E C++ (Arquivos gerados pelo Flutter/CMake)
+# ------------------------------------------------------------------
+
+# Pastas de build de projetos C++ nativos (usadas por plugins)
+.cxx/
+/android/.cxx/
+/ios/.symlinks/
+/ios/.dart_tool/
+
+# Arquivos de cache e build do CMake
+**/CMakeCache.txt
+**/CMakeFiles/
+**/cmake_install.cmake
+**/CmakeLists.txt.user
+**/compile_commands.json
+**/build.ninja
+
+# Arquivos de IDE específicos de C++
+.clangd
+
+# Pastas de build do Flutter (iOS/macOS)
+/ios/Flutter/ephemeral/
+/ios/Pods/
+/ios/Flutter/Flutter.xcodeproj/project.pbxproj
+/ios/Runner/project.xcworkspace/
+
+# Arquivos de configuração iOS/macOS que não devem ser rastreados (Xcode/Swift)
+**/*.xcconfig
+**/*.plist
+**/*.swift

@@ -1,0 +1,49 @@
+# Arquivos e pastas gerados pelo Flutter e Dart
+/build
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+**/generated_plugin_registrant.dart
+**/generated_plugin_registrant.cc
+**/generated_plugin_registrant.h
+**/generated_plugins.cmake
+**/GeneratedPluginRegistrant.java # Já estava no seu, mas é bom manter
+**/ios/Flutter/GeneratedPluginRegistrant.*
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+
+# Dependências (lib/packages)
+.idea/libraries/
+
+# Arquivos de IDE (IntelliJ/VS Code)
+.idea/
+.vscode/
+
+# Arquivos do Android (Build, Configuração Local e Chaves)
+/android/.gradle
+/android/local.properties
+/android/key.properties
+/android/gradlew
+/android/gradlew.bat
+/android/captures/
+**/*.keystore
+**/*.jks
+gradle-wrapper.jar
+
+# Arquivos de Build Nativo (Android/iOS)
+**/*.apk
+**/*.aab
+**/*.ipa
+**/*.app
+/ios/.symlinks/
+/ios/Pods/
+/ios/Runner/Runner.xcworkspace/
+/ios/Runner/project.xcworkspace/
+
+# Arquivos temporários e de OS (macOS/Linux/Windows)
+*~
+.*~
+.DS_Store
+Thumbs.db
